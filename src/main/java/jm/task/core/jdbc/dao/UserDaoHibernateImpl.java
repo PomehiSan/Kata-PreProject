@@ -2,7 +2,9 @@ package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionException;
 import org.hibernate.Transaction;
 
 import java.util.ArrayList;
@@ -21,6 +23,8 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction = session.beginTransaction();
             session.createSQLQuery(query).executeUpdate();
             transaction.commit();
+        } catch (HibernateException ex) {
+            throw ex;
         }
     }
 
@@ -32,6 +36,8 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction = session.beginTransaction();
             session.createSQLQuery(query).executeUpdate();
             transaction.commit();
+        } catch (HibernateException ex) {
+            throw ex;
         }
     }
 
@@ -42,6 +48,8 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction = session.beginTransaction();
             session.save(new User(name, lastName, age));
             transaction.commit();
+        } catch (HibernateException ex) {
+            throw ex;
         }
     }
 
@@ -52,6 +60,8 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction = session.beginTransaction();
             session.delete(session.load(User.class, id));
             transaction.commit();
+        } catch (HibernateException ex) {
+            throw ex;
         }
     }
 
@@ -64,6 +74,8 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction = session.beginTransaction();
             users = session.createQuery(query, User.class).getResultList();
             transaction.commit();
+        } catch (HibernateException ex) {
+            throw ex;
         }
         return users;
     }
@@ -76,6 +88,8 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction = session.beginTransaction();
             session.createQuery(query).executeUpdate();
             transaction.commit();
+        } catch (HibernateException ex) {
+            throw ex;
         }
     }
 }
